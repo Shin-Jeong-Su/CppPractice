@@ -1,15 +1,18 @@
-NAME:=a.out
-CPP=c++
-SRCS:=CMyString.cpp\
-	main
-H:=CMyString.h
-OBJS=$(SRCS:.cpp=.o)
+NAME := a.out
+CPP := c++
+RM := rm -f
+
+SRCS := CMyString.cpp\
+	main.cpp
+H := CMyString.h
+OBJS = $(SRCS:.cpp=.o)
+
 $(NAME) : $(OBJS)
-	$(CPP) $^ -o $(NAME)
-.o: $(SRCS) $(H)
-	$(CPP) $< -o $@
+	$(CPP) $(OBJS) -o $(NAME)
+%.o: %.cpp $(H)
+	$(CPP) -c $< -o $@
 clean :
-	rm -f $(OBJS)
+	$(RM) $(OBJS)
 fclean : clean
-	rm -f $(NAME)
-re : clean fclean
+	$(RM) $(NAME)
+re : fclean $(NAME)
